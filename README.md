@@ -16,7 +16,7 @@ projhome=/mnt/ceph/stah3621/diorhabda/annotation_genome/radsex
 ```
 outdir=$projhome/carinulata/
 
-assmdir=/mnt/ceph/stah3621/diorhabda/assemble_genome/Hilo/ssim/Diorhabda_carinulata_no_mito.p_ctg.fasta
+assmdir=/mnt/ceph/stah3621/diorhabda/assemble_genome/Hilo
 
 
 # sexed samples map
@@ -42,10 +42,16 @@ Run radsex!
 ./bin/radsex distrib --markers-table $outdir/markers_table.tsv --output-file $outdir/distribution.tsv --popmap $popmap --min-depth 5 --groups M,F
 ./bin/radsex signif --markers-table $outdir/markers_table.tsv --output-file $outdir/significant_markers.tsv --popmap $popmap --min-depth 5 --groups M,F
 
-
-carinu_assm=$assmdir/ssim/Diorhabda_carinulata_no_mito.p_ctg.fasta
+## Map to reference genome
+carinu_assm=$assmdir/ssim/Diorhabda_carinulata_no_mito.p_ctg.fasta  
 
 ./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/map_results.tsv --popmap $popmap --genome-file $assm --min-depth 5 --groups M,F
+
+assms=$(ls $assmdir/ssim/Diorhabda_carinata_no_mito.p_ctg.fasta $assmdir/Diorhabda_*_male/purged.fa)
+
+for a in $assms; do
+	./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/map_results.tsv --popmap $popmap --genome-file $a --min-depth 5 --groups M,F
+done
 ```
 
 Complement this with vizualization in R using https://github.com/SexGenomicsToolkit/sgtr  
