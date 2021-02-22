@@ -11,7 +11,7 @@ projhome=/mnt/ceph/stah3621/diorhabda/annotation_genome/radsex
 
 ```
 
-### starting off with carinulata which has the first best assembly yet
+### starting off with carinulata which has the best assembly yet
  
 ```
 outdir=$projhome/carinulata/
@@ -42,15 +42,31 @@ Run radsex!
 ./bin/radsex distrib --markers-table $outdir/markers_table.tsv --output-file $outdir/distribution.tsv --popmap $popmap --min-depth 5 --groups M,F
 ./bin/radsex signif --markers-table $outdir/markers_table.tsv --output-file $outdir/significant_markers.tsv --popmap $popmap --min-depth 5 --groups M,F
 
-## Map to reference genome
+```
+
+Do the same for hybrid sexed samples
+
+```
+popmap=$projhome/hybrids/sexed_hybrids.txt
+samplesdir=$projhome/hybrids/sexed_samples
+outdir=$projhome/hybrids
+
+./bin/radsex process --input-dir $samplesdir --output-file $outdir/markers_table.tsv --threads 16
+./bin/radsex distrib --markers-table $outdir/markers_table.tsv --output-file $outdir/distribution.tsv --popmap $popmap --min-depth 5 --groups M,F
+./bin/radsex signif --markers-table $outdir/markers_table.tsv --output-file $outdir/significant_markers.tsv --popmap $popmap --min-depth 5 --groups M,F
+```
+
+##Map to reference genome
+```
 carinu_assm=$assmdir/ssim/Diorhabda_carinulata_no_mito.p_ctg.fasta  
 
 ./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/map_results.tsv --popmap $popmap --genome-file $assm --min-depth 5 --groups M,F
 
+# would be nice to loop through these
 assms=$(ls $assmdir/ssim/Diorhabda_carinata_no_mito.p_ctg.fasta $assmdir/Diorhabda_*_male/purged.fa)
 
-for a in $assms; do
-	./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/map_results.tsv --popmap $popmap --genome-file $a --min-depth 5 --groups M,F
+./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/elongata_map_results.tsv --popmap $popmap --genome-file $a --min-depth 5 --groups M,F
+
 done
 ```
 
