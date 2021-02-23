@@ -1,3 +1,4 @@
+#!/bin/bash
 
 module load gcc
 
@@ -8,8 +9,8 @@ popmap=$projhome/hybrids/sexed_hybrids.txt
 samplesdir=$projhome/hybrids/sexed_samples
 outdir=$projhome/hybrids
 
-spp=elongata
-assm=$assmdir/Diorhabda_elongata_male/purged.fa
+spp=sublineata
+assm=$assmdir/Diorhabda_${spp}_male/purged.fa
 
 ./bin/radsex map --markers-file $outdir/markers_table.tsv \
 --output-file  $outdir/${spp}_map_results.tsv \
