@@ -18,7 +18,6 @@ outdir=$projhome/carinulata/
 
 assmdir=/mnt/ceph/stah3621/diorhabda/assemble_genome/Hilo
 
-
 # sexed samples map
 popmap=$projhome/carinulata/carinulata_sex_popmap.txt
 samplesdir=$projhome/carinulata/sexed_samples
@@ -48,26 +47,27 @@ Do the same for hybrid sexed samples
 
 ```
 popmap=$projhome/hybrids/sexed_hybrids.txt
+popmap=$pojhome/carinulata/carinulata_sex_popmap.txt
 samplesdir=$projhome/hybrids/sexed_samples
 outdir=$projhome/hybrids
 
-./bin/radsex process --input-dir $samplesdir --output-file $outdir/markers_table.tsv --threads 16
-./bin/radsex distrib --markers-table $outdir/markers_table.tsv --output-file $outdir/distribution.tsv --popmap $popmap --min-depth 5 --groups M,F
-./bin/radsex signif --markers-table $outdir/markers_table.tsv --output-file $outdir/significant_markers.tsv --popmap $popmap --min-depth 5 --groups M,F
 ```
 
 ##Map to reference genome
+
+Should really loop through these. 
 ```
 carinu_assm=$assmdir/ssim/Diorhabda_carinulata_no_mito.p_ctg.fasta  
+carinu_assm=$assmdir/Diorhabda_carinulata_male/Diorhabda_carinulata_phaseScaffolds.fasta
+carina_assm=$assmdir/Diorhabda_carinata_male/Diorhabda_carinata_phaseScaffolds.fasta
+elong_assm=$assmdir/Diorhabda_elongata_male/genome.FINAL.fasta
+sublin_assm=$assmdir/Diorhabda_sublineata_male/genome.FINAL.fasta
 
-./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/map_results.tsv --popmap $popmap --genome-file $assm --min-depth 5 --groups M,F
+#Captured in scripts/run_radsex.sh
+./bin/radsex map --markers-file $outdir/marksers_table.tsv --output-file $outdir/carinu_scaff_map_results.tsv --popmap $popmap --genome-file $carinu_assm --min-depth 5 --groups M,F
 
-# would be nice to loop through these
-assms=$(ls $assmdir/ssim/Diorhabda_carinata_no_mito.p_ctg.fasta $assmdir/Diorhabda_*_male/purged.fa)
 
-./bin/radsex map --markers-file $outdir/markers_table.tsv --output-file $outdir/elongata_map_results.tsv --popmap $popmap --genome-file $a --min-depth 5 --groups M,F
 
-done
 ```
 
 Complement this with vizualization in R using https://github.com/SexGenomicsToolkit/sgtr  
