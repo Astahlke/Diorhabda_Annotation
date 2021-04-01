@@ -5,9 +5,9 @@ module load gcc
 projhome=/mnt/ceph/stah3621/diorhabda/annotation_genome/radsex
 assmdir=/mnt/ceph/stah3621/diorhabda/assemble_genome/Hilo
 
-popmap=$projhome/hybrids/sexed_hybrids.txt
-samplesdir=$projhome/hybrids/sexed_samples
-outdir=$projhome/hybrids
+popmap=$projhome/carinulata/carinulata_sex_popmap.txt
+samplesdir=$projhome/carinulata/sexed_samples
+outdir=$projhome/carinulata
 
 spp=carinulata
 assm=$assmdir/Diorhabda_${spp}_male/Diorhabda_${spp}_phaseScaffolds.fasta
